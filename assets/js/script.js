@@ -1,5 +1,25 @@
 var apiKey = "b52269beab4796c34581899d8460b531"
+var submitBtn = document.querySelector("#submit-btn");
+var userInput = document.querySelector("#user-search");
+var userFormEl = document.querySelector("#user-form");
+var iconContainerEl = document.querySelector("#name-icon-container");
 
+
+
+var formSubmitHandler = function (event) {
+    event.preventDefault();
+    console.log("submitted");
+    //get value from input element
+    var userSearch = userInput.value.trim();
+
+    if (userSearch) {
+        clearDisplay();
+        getCoordinates(userSearch);
+        userInput.value = "";
+    } else {
+        alert("Please enter a valid city");
+    }
+};
 
 
 var getCoordinates = function (city) {
@@ -36,28 +56,50 @@ var getWeather = function (city) {
             if (response.ok) {
                 console.log(response);
                 response.json().then(function (data) {
-                    displayWeather(data,name);
+                    displayWeather(data, name);
                 });
             } else {
                 alert("Error: City Not Found");
             }
         })
-        .catch(function(error) {
+        .catch(function (error) {
             //Notice this '.catch()' getting chained onto the end of the '.then()' method
             alert("Unable to connect to OpenWeather");
         });
 };
 
-var displayWeather = function (data,name) {
+var clearDisplay = function () {
+    $("#name-icon-container").html("");
+    $("#current-weather").html("");
+
+}
+
+var displayWeather = function (data, name) {
     //pull data
     var date = moment().format("l");
     var temp = data.current.temp;
     var wind = data.current.wind_speed;
     var humidity = data.current.humidity;
     var uvindex = data.current.uvi;
+    var iconcode = data.current.weather[0].icon
+    var iconUrl = "http://openweathermap.org/img/w/" + iconcode + ".png"
 
     // append name to container
-    $("#current-city").text(name + " " + date);
+    var nameEl = document.createElement("h2");
+    nameEl.setAttribute("class", "d-inline");
+    nameEl.textContent = name + " " + date + " ";
+    iconContainerEl.appendChild(nameEl);
+    // $("#current-city").text(name + " " + date + " ");
+
+
+    // create img element
+    var iconEl = document.createElement("img")
+    iconEl.setAttribute("class", "d-inline");
+    iconEl.setAttribute("src", iconUrl);
+
+
+    //append img to div
+    iconContainerEl.appendChild(iconEl);
 
     //create li items for each weather data and append to ul
     var tempEl = document.createElement("li");
@@ -76,9 +118,10 @@ var displayWeather = function (data,name) {
     uvEl.textContent = "UV Index: " + uvindex;
     $("#current-weather").append(uvEl);
 
+};
 
 
 
-}
-
-getCoordinates("burlingame");
+// getCoordinates("burlingame");
+userFormEl.addEventListener("submit", formSubmitHandler);
+submitBtn.addEventListener("click", formSubmitHandler);

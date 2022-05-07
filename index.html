@@ -19,13 +19,17 @@
 <main class="row">
     <div id="search-container" class="col-2">
         <h2>Search for a City:</h2>
-        <input>
-        <button></button>
+        <form id="user-form">
+            <input id="user-search" type="text" class="form-control" placeholder="Search for a city!">
+            <button id="submit-btn" type="button" class="btn btn-primary ">Search</button>
+        </form>
         <ul></ul>
     </div>
     <div id="weather-container" class="col-10">
         <section id="current-weather-container">
-            <h2 id="current-city">City Name and Date here</h2>
+            <div id="name-icon-container" >
+                <h2 id="current-city" class="d-inline">City Name and Date here</h2>
+            </div>
             <ul id="current-weather" class="list-group"></ul>
         </section>
         <section id="future-weather-container">
