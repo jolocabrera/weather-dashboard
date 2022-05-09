@@ -46,7 +46,7 @@ var getWeather = function (city) {
     var name = city[0].name;
 
     // format the api url
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&units=imperial&appid=" + apiKey;
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + apiKey;
     console.log(apiUrl);
 
     //make a request to the url
@@ -57,6 +57,7 @@ var getWeather = function (city) {
                 console.log(response);
                 response.json().then(function (data) {
                     displayWeather(data, name);
+                    displayForecast(data);
                 });
             } else {
                 alert("Error: City Not Found");
@@ -89,7 +90,6 @@ var displayWeather = function (data, name) {
     nameEl.setAttribute("class", "d-inline");
     nameEl.textContent = name + " " + date + " ";
     iconContainerEl.appendChild(nameEl);
-    // $("#current-city").text(name + " " + date + " ");
 
 
     // create img element
@@ -119,6 +119,50 @@ var displayWeather = function (data, name) {
     $("#current-weather").append(uvEl);
 
 };
+
+var displayForecast = function (data) {
+    for (var i = 1; i < data.daily.length;i++) {
+        //create card div
+        var card = document.createElement("div");
+        card.className = "card"
+        
+        //pull data
+        var date = moment.unix(data.daily[i].dt).format("L");
+        var icon = data.daily[i].weather[0].icon
+        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
+        var temp = data.daily[i].temp.day;
+        var wind = data.daily[i].wind_speed;
+        var humidity = data.daily[i].humidity;
+
+        //set and append date to card
+        var dateEl = document.createElement("h4");
+        dateEl.className = "card-title";
+        card.appendChild(dateEl);
+
+        //create elements for card then append
+        var iconEl = document.createElement("img");
+        iconEl.setAttribute("src", iconUrl);
+        card.appendChild(iconEl);
+
+        var tempEl = document.createElement("p");
+        tempEl.textContent = "Temp: " + temp + "°F";
+        card.appendChild(tempEl);
+    
+        var windEl = document.createElement("p");
+        windEl.textContent = "Wind: " + wind + " MPH";
+        card.appendChild(windEl);
+    
+        var humidityEl = document.createElement("p");
+        humidityEl.textContent = "Humidity: " + humidity + " %";
+        card.appendChild(humidityEl);
+
+        //append card to 5 day forecast
+        $(".card-holder").append(card);
+
+    }
+
+
+}
 
 
 
