@@ -121,10 +121,10 @@ var displayWeather = function (data, name) {
 };
 
 var displayForecast = function (data) {
-    for (var i = 1; i < data.daily.length;i++) {
+    for (var i = 1; i < 6;i++) {
         //create card div
         var card = document.createElement("div");
-        card.className = "card"
+        card.className = "card bg-dark text-white mx-2 px-1"
         
         //pull data
         var date = moment.unix(data.daily[i].dt).format("L");
@@ -137,12 +137,15 @@ var displayForecast = function (data) {
         //set and append date to card
         var dateEl = document.createElement("h4");
         dateEl.className = "card-title";
+        dateEl.textContent = date;
         card.appendChild(dateEl);
 
         //create elements for card then append
+        var iconElContainer = document.createElement("div")
         var iconEl = document.createElement("img");
         iconEl.setAttribute("src", iconUrl);
-        card.appendChild(iconEl);
+        iconElContainer.appendChild(iconEl);
+        card.appendChild(iconElContainer);
 
         var tempEl = document.createElement("p");
         tempEl.textContent = "Temp: " + temp + "°F";
@@ -157,7 +160,7 @@ var displayForecast = function (data) {
         card.appendChild(humidityEl);
 
         //append card to 5 day forecast
-        $(".card-holder").append(card);
+        $(".card-group").append(card);
 
     }
 
