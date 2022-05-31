@@ -18,6 +18,7 @@ var formSubmitHandler = function (event) {
         clearDisplay();
         saveSearchHistory(userSearch);
         getCoordinates(userSearch);
+        displaySearchHistory(searchHistory);
         userInput.value = "";
     } else {
         alert("Please enter a valid city");
@@ -76,6 +77,7 @@ var clearDisplay = function () {
     $("#name-icon-container").html("");
     $("#current-weather").html("");
     $(".card-group").html("");
+    $("#search-history-list").html("");
 
 }
 
@@ -223,23 +225,11 @@ var displaySearchHistory = function(cityArray) {
         buttonEl.addEventListener("click", function(event) {
             let cityText = event.target.id;
             userInput.value = cityText
-            
             formSubmitHandler(event);
         })
-
     }
-    // //create event handler for all search history buttons 
-    // historyContainerEl.addEventListener("click", searchHistoryClick())
 }
 
-// var searchHistoryClick = function(event) {
-//     let cityText = event.target.textContent
-//     console.log(cityText);
-//     // //change userinput to button text content
-//     // userInput = text from button
-//     // //run search
-//     // formSubmitHandler()
-// }
 
 function toTitleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
