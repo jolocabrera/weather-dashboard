@@ -11,21 +11,21 @@
 
 <body>
 <header>
-    <h1>
+    <h1 class="row w-100 justify-content-center">
         Weather Dashboard
     </h1>
 </header>
 
 <main class="row">
-    <div id="search-container" class="col-2">
+    <div id="search-container" class="col-2 mx-3">
         <h2>Search for a City:</h2>
         <form id="user-form">
             <input id="user-search" type="text" class="form-control" placeholder="Search for a city!">
             <button id="submit-btn" type="button" class="btn btn-primary ">Search</button>
         </form>
-        <ul></ul>
+        <ul id="search-history-list"></ul>
     </div>
-    <div id="weather-container" class="col-10">
+    <div id="weather-container" class="col-9">
         <section id="current-weather-container">
             <div id="name-icon-container" >
                 <h2 id="current-city" class="d-inline"></h2>

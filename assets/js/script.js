@@ -3,7 +3,8 @@ var submitBtn = document.querySelector("#submit-btn");
 var userInput = document.querySelector("#user-search");
 var userFormEl = document.querySelector("#user-form");
 var iconContainerEl = document.querySelector("#name-icon-container");
-
+var historyContainerEl = document.querySelector("#search-history-list");
+var searchHistory = [];
 
 
 var formSubmitHandler = function (event) {
@@ -14,6 +15,7 @@ var formSubmitHandler = function (event) {
 
     if (userSearch) {
         clearDisplay();
+        saveSearchHistory(userSearch);
         getCoordinates(userSearch);
         userInput.value = "";
     } else {
@@ -72,6 +74,7 @@ var getWeather = function (city) {
 var clearDisplay = function () {
     $("#name-icon-container").html("");
     $("#current-weather").html("");
+    $(".card-group").html("");
 
 }
 
@@ -167,8 +170,51 @@ var displayForecast = function (data) {
 
 }
 
+var saveSearchHistory = function (city) {
+    let cityCase = toTitleCase(city);
+    let cityCheck = searchHistory.includes(cityCase);
+    console.log(cityCheck);
+    //add searched city to history array if it is not already there
+    if (!cityCheck) {
+        searchHistory.push(cityCase);
+        localStorage.setItem("city", JSON.stringify(searchHistory));
+    } else {
+        localStorage.setItem("city", JSON.stringify(searchHistory));
+    }
+}
 
+var loadSearchHistory = function() {
+    //get local storage cities
+    let savedCities = localStorage.getItem("city")
+    //check if there is anything in local storage, if not, set "searchHistory" array to empty
+    if (!savedCities) {
+        searchHistory = [];
+        return false;
+    } 
+
+    savedCities = JSON.parse(savedCities);
+    //add saved cities to "searchHistory" array
+    for (i=0; i < savedCities.length; i++) {
+        searchHistory.push(savedCities[i]);
+    }
+
+    
+    // displaySearchHistory(searchHistory);
+}
+
+var displaySearchHistory = function(city) {
+    for (i=0; i < savedCities.length; i++) {
+
+    }
+}
+
+function toTitleCase(str) {
+    return str.toLowerCase().split(' ').map(function (word) {
+      return (word.charAt(0).toUpperCase() + word.slice(1));
+    }).join(' ');
+  }
 
 // getCoordinates("burlingame");
+loadSearchHistory();
 userFormEl.addEventListener("submit", formSubmitHandler);
 submitBtn.addEventListener("click", formSubmitHandler);
