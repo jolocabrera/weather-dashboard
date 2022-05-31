@@ -11,6 +11,7 @@ var formSubmitHandler = function (event) {
     event.preventDefault();
     console.log("submitted");
     //get value from input element
+    console.log(userInput);
     var userSearch = userInput.value.trim();
 
     if (userSearch) {
@@ -199,14 +200,46 @@ var loadSearchHistory = function() {
     }
 
     
-    // displaySearchHistory(searchHistory);
+    displaySearchHistory(searchHistory);
 }
 
-var displaySearchHistory = function(city) {
-    for (i=0; i < savedCities.length; i++) {
+var displaySearchHistory = function(cityArray) {
+    for (i=0; i < cityArray.length; i++) {
+        //create li element
+        let listEl = document.createElement("li")
+
+        //create button element and style
+        let buttonEl = document.createElement("button");
+        buttonEl.textContent = cityArray[i];
+        buttonEl.className = "btn btn-secondary"
+        buttonEl.id = cityArray[i]
+        buttonEl.type = "button"
+
+        //append button to li and li to ul
+        listEl.appendChild(buttonEl);
+        historyContainerEl.appendChild(listEl);
+
+        //add event listener
+        buttonEl.addEventListener("click", function(event) {
+            let cityText = event.target.id;
+            userInput.value = cityText
+            
+            formSubmitHandler(event);
+        })
 
     }
+    // //create event handler for all search history buttons 
+    // historyContainerEl.addEventListener("click", searchHistoryClick())
 }
+
+// var searchHistoryClick = function(event) {
+//     let cityText = event.target.textContent
+//     console.log(cityText);
+//     // //change userinput to button text content
+//     // userInput = text from button
+//     // //run search
+//     // formSubmitHandler()
+// }
 
 function toTitleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
