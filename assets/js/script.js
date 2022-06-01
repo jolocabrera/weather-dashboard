@@ -125,8 +125,23 @@ var displayWeather = function (data, name) {
     $("#current-weather").append(humidityEl);
 
     var uvEl = document.createElement("li");
-    uvEl.textContent = "UV Index: " + uvindex;
+    uvEl.textContent = "UV Index: "
     uvEl.className="my-2"
+    //create span element for uvindex
+    var uvSpan = document.createElement("span")
+    uvSpan.textContent = uvindex
+    uvSpan.className = "rounded p-2 text-white"
+    //determine if uv is favorable moderate or severe
+    if (uvindex <= 2) {
+        uvSpan.className = "bg-success rounded px-2 py-1 text-white"
+    }
+    else if (uvindex <= 7) {
+        uvSpan.className = "bg-warning rounded px-2 py-1 text-white"
+    } 
+    else {
+        uvSpan.className = "bg-danger rounded px-2 py-1 text-white"
+    }
+    $(uvEl).append(uvSpan);
     $("#current-weather").append(uvEl);
 
 };
@@ -237,13 +252,14 @@ var displaySearchHistory = function(cityArray) {
 }
 
 
+//title case utility
 function toTitleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
       return (word.charAt(0).toUpperCase() + word.slice(1));
     }).join(' ');
   }
 
-// getCoordinates("burlingame");
+
 loadSearchHistory();
 userFormEl.addEventListener("submit", formSubmitHandler);
 submitBtn.addEventListener("click", formSubmitHandler);
