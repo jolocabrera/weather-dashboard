@@ -95,6 +95,7 @@ var displayWeather = function (data, name) {
     var nameEl = document.createElement("h2");
     nameEl.setAttribute("class", "d-inline");
     nameEl.textContent = name + " " + date + " ";
+    nameEl.className="fw-bold"
     iconContainerEl.appendChild(nameEl);
 
 
@@ -110,18 +111,22 @@ var displayWeather = function (data, name) {
     //create li items for each weather data and append to ul
     var tempEl = document.createElement("li");
     tempEl.textContent = "Temp: " + temp + "°F";
+    tempEl.className="my-2"
     $("#current-weather").append(tempEl);
 
     var windEl = document.createElement("li");
     windEl.textContent = "Wind: " + wind + " MPH";
+    windEl.className="my-2"
     $("#current-weather").append(windEl);
 
     var humidityEl = document.createElement("li");
     humidityEl.textContent = "Humidity: " + humidity + " %";
+    humidityEl.className="my-2"
     $("#current-weather").append(humidityEl);
 
     var uvEl = document.createElement("li");
     uvEl.textContent = "UV Index: " + uvindex;
+    uvEl.className="my-2"
     $("#current-weather").append(uvEl);
 
 };
@@ -208,12 +213,13 @@ var loadSearchHistory = function() {
 var displaySearchHistory = function(cityArray) {
     for (i=0; i < cityArray.length; i++) {
         //create li element
-        let listEl = document.createElement("li")
+        let listEl = document.createElement("li");
+        listEl.className = "w-100 p-0"
 
         //create button element and style
         let buttonEl = document.createElement("button");
         buttonEl.textContent = cityArray[i];
-        buttonEl.className = "btn btn-secondary"
+        buttonEl.className = "btn btn-secondary w-100 my-2"
         buttonEl.id = cityArray[i]
         buttonEl.type = "button"
 

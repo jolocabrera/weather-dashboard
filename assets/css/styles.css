@@ -1,3 +1,7 @@
 #current-weather, #search-history-list{
     list-style: none;
 }
+
+ol, ul, li {
+    padding: 0;
+}

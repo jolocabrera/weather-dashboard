@@ -11,29 +11,29 @@
 
 <body>
 <header>
-    <h1 class="row w-100 justify-content-center">
+    <h2 class="row w-100 justify-content-center bg-primary bg-gradient text-light fw-bold p-3">
         Weather Dashboard
-    </h1>
+    </h2>
 </header>
 
 <main class="row">
-    <div id="search-container" class="col-2 mx-3">
-        <h2>Search for a City:</h2>
-        <form id="user-form">
-            <input id="user-search" type="text" class="form-control" placeholder="Search for a city!">
-            <button id="submit-btn" type="button" class="btn btn-primary ">Search</button>
+    <div id="search-container" class="col-3 mx-3">
+        <h2 class="w-100 fw-bold">Search for a City:</h2>
+        <form id="user-form" class="border-bottom border-dark">
+            <input id="user-search" type="text" class="form-control w-100 my-2" placeholder="Search for a city!">
+            <button id="submit-btn" type="button" class="btn btn-primary w-100 my-2 border-bottom">Search</button>
         </form>
         <ul id="search-history-list"></ul>
     </div>
-    <div id="weather-container" class="col-9">
-        <section id="current-weather-container">
-            <div id="name-icon-container" >
+    <div id="weather-container" class="col-8">
+        <section id="current-weather-container" class="border border-dark p-2">
+            <div id="name-icon-container" class="d-flex justify-content-start">
                 <h2 id="current-city" class="d-inline"></h2>
             </div>
-            <ul id="current-weather" class="list-group"></ul>
+            <ul id="current-weather" class="list-group p-0"></ul>
         </section>
         <section id="future-weather-container">
-            <h3>5-Day Forecast:</h3>
+            <h3 class="my-2">5-Day Forecast:</h3>
             <div class="card-group"></div>
         </section>
     </div> 
