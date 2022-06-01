@@ -28,7 +28,7 @@ var formSubmitHandler = function (event) {
 
 var getCoordinates = function (city) {
     // format api url
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
     console.log(apiUrl);
 
     // make a request to the url
@@ -89,7 +89,7 @@ var displayWeather = function (data, name) {
     var humidity = data.current.humidity;
     var uvindex = data.current.uvi;
     var iconcode = data.current.weather[0].icon
-    var iconUrl = "http://openweathermap.org/img/w/" + iconcode + ".png"
+    var iconUrl = "https://openweathermap.org/img/w/" + iconcode + ".png"
 
     // append name to container
     var nameEl = document.createElement("h2");
@@ -155,7 +155,7 @@ var displayForecast = function (data) {
         //pull data
         var date = moment.unix(data.daily[i].dt).format("L");
         var icon = data.daily[i].weather[0].icon
-        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
+        var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png"
         var temp = data.daily[i].temp.day;
         var wind = data.daily[i].wind_speed;
         var humidity = data.daily[i].humidity;
